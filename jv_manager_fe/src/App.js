@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.css';
 import NewJv from './NewJv'
+import Jvs from './Jvs'
 
 let baseUrl = 'http://localhost:8000'
 
@@ -15,8 +16,7 @@ class App extends Component {
       name: "",
       ownership:"",
       sales:"",
-      id: Number,
-
+      id: "",
     }
   }
 
@@ -50,8 +50,6 @@ deleteJv = (id) => {
     fetch(baseUrl + '/jv/' + id, {
     method: 'DELETE'
   }).then( res => {
-    // console.log(res)
-    // if I checked for a 200 response code 
     const findIndex = this.state.jv.findIndex(jv => jv.id === id)
     const copyJv = [...this.state.jv]
     copyJv.splice(findIndex, 1)
@@ -60,7 +58,6 @@ deleteJv = (id) => {
     })
   })
 }
-
 handleSubmit = async (e) => {
   e.preventDefault()
   const url = baseUrl + '/jv/' + this.state.id
@@ -80,7 +77,7 @@ handleSubmit = async (e) => {
 
     if (response.status === 200){
       const updatedJv = await response.json()
-      const findIndex = this.state.jv.findIndex(jv => jv.id === updatedJv.id)
+      const findIndex = this.props.jv.findIndex(jv => jv.id === updatedJv.id)
       const copyJv = [...this.state.jv]
       copyJv[findIndex] = updatedJv
       this.setState({
@@ -100,16 +97,16 @@ handleChange = (e)=>{
   })
 }
 
-showEditForm = (jv)=>{
-   this.setState({
-     modalOpen:true,
-     name: jv.name,
-     ownership: jv.ownership,
-     sales: jv.sales,
-     id: jv.id,
-     jvToBeEdited:jv
-   })
- }
+showEditForm = (jv) =>{
+  this.setState({
+    modalOpen:true,
+    name: jv.name,
+    ownership: jv.ownership,
+    sales: jv.sales,
+    id: jv.id,
+    jvToBeEdited:jv
+  })
+}
 
 componentDidMount() {
     this.getJvs()
@@ -121,24 +118,8 @@ render() {
     <div className="App">
       <h1> JVs! </h1>
       <NewJv baseUrl={baseUrl} addJv={ this.addJv }/>
-      <table>
-          <tbody>
-            { this.state.jv.map((jv, i) => {
-                return (
-                  <tr>
-                    <td key={jv.id}> {jv.name} </td>
-                    <td key={i}> {jv.ownership} </td>
-                    <td key={i}> {jv.sales} </td>
-                    <td onClick={() => this.deleteJv(jv.id)}>X</td>
-                    <td onClick={() => { this.showEditForm(jv)}}>Show Edit Form</td>
-                  </tr>
-                )
-              })
-            }
-          </tbody>
-        </table>
-
-        {
+      <Jvs jv={this.state.jv} deleteJv={this.deleteJv} showEditForm={this.showEditForm} />
+      {
             this.state.modalOpen &&
 
             <form onSubmit={this.handleSubmit}>
@@ -154,7 +135,7 @@ render() {
               <button>submit</button>
 
             </form>
-          }
+          } 
     </div>
   );
 }
