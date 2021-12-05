@@ -1,6 +1,9 @@
-.App {
-  background-color: salmon;
+.header1 {
+  display: inline-block;
+  justify-content: center;
+
 }
+
 
 .App-logo {
   text-align: left;

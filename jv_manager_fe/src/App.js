@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import './App.css';
 import NewJv from './NewJv'
 import Jvs from './Jvs'
+import logo from './logo.png'
+
 
 let baseUrl = 'http://localhost:8000'
 
@@ -115,8 +117,11 @@ componentDidMount() {
 render() {
 
   return (
-    <div className="App">
-      <h1> JVs! </h1>
+    <>
+    <div className="header1">
+      <img src={logo} alt="logo" height={150} width={170} />
+      <h1> Track Joint Venture Investments</h1>
+      </div>
       <NewJv baseUrl={baseUrl} addJv={ this.addJv }/>
       <Jvs jv={this.state.jv} deleteJv={this.deleteJv} showEditForm={this.showEditForm} />
       {
@@ -136,7 +141,7 @@ render() {
 
             </form>
           } 
-    </div>
+    </>
   );
 }
 
