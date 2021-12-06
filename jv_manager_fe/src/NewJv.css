@@ -1,0 +1,15 @@
+.newForm {
+    padding-left: 100x;
+    height: 150px;
+    width: 850px;
+    border: black 10px;
+}
+
+.mb-3 {
+    padding-left: 80px;
+}
+
+.submitButton {
+    margin-left: 100x;
+
+}

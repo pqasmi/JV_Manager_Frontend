@@ -126,8 +126,17 @@ this.setState(
     showNewJv: true
   }
 )
-console.log(this.state.showNewJv)
+
 }
+
+hideNewJv =(e) =>{
+  this.setState(
+    {
+      showNewJv: false
+    }
+  )
+  
+  }
 
 componentDidMount() {
     this.getJvs()
@@ -164,15 +173,13 @@ render() {
      
       {this.state.showNewJv &&
 
-      <NewJv baseUrl={baseUrl} addJv={ this.addJv }/>
+      <NewJv baseUrl={baseUrl} addJv={ this.addJv } showNewJv={this.hideNewJv} />
       }
     
       <br/>
       <br/>
       <br/>
-
-
-
+  
       <Jvs jv={this.state.jv} deleteJv={this.deleteJv} showEditForm={this.showEditForm} getJvs={this.getJvs} />
       {
             this.state.modalOpen &&

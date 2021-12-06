@@ -1,4 +1,10 @@
 import React, { Component } from 'react'
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import './NewJv.css';
+
 
 export default class NewJv extends Component {
   constructor(props) {
@@ -51,6 +57,7 @@ export default class NewJv extends Component {
       })
 
       this.props.getJvs()
+  
 
     }).catch (error => console.error({'Error': error}))
   }
@@ -58,27 +65,89 @@ export default class NewJv extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor="name">Name: </label>
-        <input type="text" id="name" name="name" onChange={ (e) => this.handleChange(e)} value={this.state.name} />
+      <>
+      <Form className="newForm" onSubmit={this.handleSubmit} margin={100}>
+      <Row className="mb-3">
+        <Form.Group as={Col} md="4" controlId="validationCustom01">
+          <Form.Label htmlFor="name">JV Name</Form.Label>
+          <Form.Control
+          
+            type="text"
+            id="name"
+            name="name" 
+            placeholder="Name"
+            onChange={ (e) => this.handleChange(e)} 
+            value={this.state.name} 
+          />
+        </Form.Group>
+        <Form.Group as={Col} md="4" controlId="validationCustom01">
+          <Form.Label htmlFor="logo">Link to Logo</Form.Label>
+          <Form.Control
        
-        <label htmlFor="name">Logo: </label>
-        <input type="text" id="logo" name="logo" onChange={ (e) => this.handleChange(e)} value={this.state.logo} />
+            type="text"
+            id="logo"
+            name="logo" 
+            placeholder="Logo"
+            onChange={ (e) => this.handleChange(e)} 
+            value={this.state.logo} 
+          />
+        </Form.Group>
+        <Form.Group as={Col} md="4" controlId="validationCustom01">
+          <Form.Label htmlFor="location">Location</Form.Label>
+          <Form.Control
+         
+            type="text"
+            id="location"
+            name="location" 
+            placeholder="Country"
+            onChange={ (e) => this.handleChange(e)} 
+            value={this.state.location} 
+          />
+        </Form.Group>
+      </Row>  
+      
+      <Row className="mb-3">
+        <Form.Group as={Col} md="4" controlId="validationCustom01">
+          <Form.Label htmlFor="ownership">Ownership</Form.Label>
+          <Form.Control
+         
+            type="text"
+            id="ownership"
+            name="ownership" 
+            placeholder="Minority/Majority"
+            onChange={ (e) => this.handleChange(e)} 
+            value={this.state.ownership} 
+          />
+        </Form.Group>
+        <Form.Group as={Col} md="4" controlId="validationCustom01">
+          <Form.Label htmlFor="sales">Link to Logo</Form.Label>
+          <Form.Control
+        
+            type="text"
+            id="sales"
+            name="sales" 
+            placeholder="$(Millions)"
+            onChange={ (e) => this.handleChange(e)} 
+            value={this.state.sales} 
+          />
+        </Form.Group>
        
-        <label htmlFor="name">Location: </label>
-        <input type="text" id="location" name="location" onChange={ (e) => this.handleChange(e)} value={this.state.location} />
+        <br/>
+        <br/>
+        <br/>
 
-        <label htmlFor="name">Ownership: </label>
-        <input type="text" id="ownership" name="ownership" onChange={ (e) => this.handleChange(e)} value={this.state.ownership} />
        
+      </Row>   
+      <div className="submitButton">
+      <Button type="submit">Submit</Button> 
+      </div>
+       
+    </Form>
 
-        <label htmlFor="name">Sales: </label>
-        <input type="text" id="sales" name="sales" onChange={ (e) => this.handleChange(e)} value={this.state.sales} />
-
-        <input type="submit" value="Add Jv" />
-
-      </form>
+      </>
+    
     )
+
   }
 
-}
+  }
