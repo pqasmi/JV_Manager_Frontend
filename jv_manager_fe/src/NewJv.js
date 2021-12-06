@@ -6,6 +6,8 @@ export default class NewJv extends Component {
 
     this.state = {
       name: '',
+      logo: '',
+      location: '',
       ownership: '',
       sales: ''
     }
@@ -20,12 +22,14 @@ export default class NewJv extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    // console.log(this.state.name)
+ 
     // fetch
-    fetch(this.props.baseUrl + '/jv/', {
+    fetch('http://localhost:8000' + '/jv/', {
       method: 'POST',
       body: JSON.stringify({
           name: this.state.name,
+          logo: this.state.logo,
+          location: this.state.location,
           ownership: this.state.ownership,
           sales: this.state.sales,
         }),
@@ -40,9 +44,14 @@ export default class NewJv extends Component {
       this.props.addJv(data)
       this.setState({
         name: '',
+        logo: '',
+        location: '',
         ownership: '',
         sales: ''
       })
+
+      this.props.getJvs()
+
     }).catch (error => console.error({'Error': error}))
   }
 
@@ -53,6 +62,11 @@ export default class NewJv extends Component {
         <label htmlFor="name">Name: </label>
         <input type="text" id="name" name="name" onChange={ (e) => this.handleChange(e)} value={this.state.name} />
        
+        <label htmlFor="name">Logo: </label>
+        <input type="text" id="logo" name="logo" onChange={ (e) => this.handleChange(e)} value={this.state.logo} />
+       
+        <label htmlFor="name">Location: </label>
+        <input type="text" id="location" name="location" onChange={ (e) => this.handleChange(e)} value={this.state.location} />
 
         <label htmlFor="name">Ownership: </label>
         <input type="text" id="ownership" name="ownership" onChange={ (e) => this.handleChange(e)} value={this.state.ownership} />

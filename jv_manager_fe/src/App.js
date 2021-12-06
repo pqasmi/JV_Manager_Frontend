@@ -21,6 +21,9 @@ class App extends Component {
       ownership:"",
       sales:"",
       id: "",
+      location: "",
+      logo:"",
+      showNewJv: false,
     }
   }
 
@@ -70,6 +73,8 @@ handleSubmit = async (e) => {
       method: 'PUT',
       body: JSON.stringify({
         name: e.target.name.value,
+        logo: e.target.logo.value,
+        location: e.target.location.value,
         ownership: e.target.ownership.value,
         sales: e.target.sales.value,
 
@@ -78,17 +83,18 @@ handleSubmit = async (e) => {
         'Content-Type' : 'application/json'
       },
     })
-
-    if (response.status === 200){
-      const updatedJv = await response.json()
-      const findIndex = this.props.jv.findIndex(jv => jv.id === updatedJv.id)
-      const copyJv = [...this.state.jv]
-      copyJv[findIndex] = updatedJv
-      this.setState({
-        jv: copyJv,
-        modalOpen:false
-      })
-    }
+      if (response.status === 200){
+          const updatedJv = await response.json()
+          const findIndex = this.state.jv.findIndex(jv => jv.id === updatedJv.id)
+          const copyJv = [...this.state.jv]
+          copyJv[findIndex] = updatedJv
+          this.setState({
+            jv: copyJv,
+            modalOpen:false
+          })
+          this.getJvs()
+    
+        }
   }
   catch(err){
     console.log('Error => ', err);
@@ -105,11 +111,22 @@ showEditForm = (jv) =>{
   this.setState({
     modalOpen:true,
     name: jv.name,
+    logo: jv.logo,
+    location: jv.location,
     ownership: jv.ownership,
     sales: jv.sales,
     id: jv.id,
     jvToBeEdited:jv
   })
+}
+
+newJv =(e) =>{
+this.setState(
+  {
+    showNewJv: true
+  }
+)
+console.log(this.state.showNewJv)
 }
 
 componentDidMount() {
@@ -131,26 +148,46 @@ render() {
         <h3 className="header">Joint Venture Manager</h3>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="link-2">Link</Nav.Link>
+          <Nav.Link onClick={this.newJv}>Add JV Record</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="disabled" disabled>
-            Disabled
-          </Nav.Link>
+        <Nav.Link eventKey="link-3">Live Forex Rates</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+        <Nav.Link eventKey="link-4">Translate Records</Nav.Link>
         </Nav.Item>
       </Nav>
-    
+    <br/>
+    <br/>
+    <br/>
       
      
+      {this.state.showNewJv &&
 
       <NewJv baseUrl={baseUrl} addJv={ this.addJv }/>
-      <Jvs jv={this.state.jv} deleteJv={this.deleteJv} showEditForm={this.showEditForm} />
+      }
+    
+      <br/>
+      <br/>
+      <br/>
+
+
+
+      <Jvs jv={this.state.jv} deleteJv={this.deleteJv} showEditForm={this.showEditForm} getJvs={this.getJvs} />
       {
             this.state.modalOpen &&
 
             <form onSubmit={this.handleSubmit}>
               <label>Name: </label>
               <input name="name" value={this.state.name} onChange={this.handleChange}/> <br/>
+
+
+              <label>Logo: </label>
+              <input name="logo" value={this.state.logo} onChange={this.handleChange}/> <br/>
+
+              <label>Location: </label>
+              <input name="location" value={this.state.location} onChange={this.handleChange}/> <br/>
+
 
               <label>Ownership: </label>
               <input name="ownership" value={this.state.ownership} onChange={this.handleChange}/>
