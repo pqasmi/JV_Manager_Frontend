@@ -3,6 +3,8 @@ import './App.css';
 import NewJv from './NewJv'
 import Jvs from './Jvs'
 import logo from './logo.png'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import Nav from 'react-bootstrap/Nav';
 
 
 let baseUrl = 'http://localhost:8000'
@@ -118,10 +120,29 @@ render() {
 
   return (
     <>
-    <div className="header1">
-      <img src={logo} alt="logo" height={150} width={170} />
-      <h1> Track Joint Venture Investments</h1>
-      </div>
+        <Nav
+          activeKey="/home"
+          onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
+      >
+        <Nav.Item>
+        {/* <img src={logo} alt="logo" height={75} width={90} /> */}
+        </Nav.Item>
+        <Nav.Item>
+        <h3 className="header">Joint Venture Manager</h3>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link-2">Link</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="disabled" disabled>
+            Disabled
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+    
+      
+     
+
       <NewJv baseUrl={baseUrl} addJv={ this.addJv }/>
       <Jvs jv={this.state.jv} deleteJv={this.deleteJv} showEditForm={this.showEditForm} />
       {
