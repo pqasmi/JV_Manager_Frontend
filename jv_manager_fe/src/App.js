@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import './App.css';
 import NewJv from './NewJv'
 import Jvs from './Jvs'
-import logo from './logo.png'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Nav from 'react-bootstrap/Nav';
 
@@ -157,29 +156,25 @@ render() {
         <h3 className="header">Joint Venture Manager</h3>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={this.newJv}>Add JV Record</Nav.Link>
+          <Nav.Link className="link" onClick={this.newJv}>Add JV Record</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-        <Nav.Link eventKey="link-3">Live Forex Rates</Nav.Link>
+        <Nav.Link className="link" eventKey="link-3">Live Forex Rates</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-        <Nav.Link eventKey="link-4">Translate Records</Nav.Link>
+        <Nav.Link className="link"eventKey="link-4">Translate Records</Nav.Link>
         </Nav.Item>
       </Nav>
     <br/>
     <br/>
     <br/>
-      
-     
       {this.state.showNewJv &&
-
-      <NewJv baseUrl={baseUrl} addJv={ this.addJv } showNewJv={this.hideNewJv} />
+      <NewJv baseUrl={baseUrl} addJv={ this.addJv } hideNewJv={this.hideNewJv} />
       }
-    
-      <br/>
-      <br/>
-      <br/>
-  
+    <br/>
+    <br/>
+    <br/>
+    <br/>
       <Jvs jv={this.state.jv} deleteJv={this.deleteJv} showEditForm={this.showEditForm} getJvs={this.getJvs} />
       {
             this.state.modalOpen &&
@@ -194,7 +189,6 @@ render() {
 
               <label>Location: </label>
               <input name="location" value={this.state.location} onChange={this.handleChange}/> <br/>
-
 
               <label>Ownership: </label>
               <input name="ownership" value={this.state.ownership} onChange={this.handleChange}/>

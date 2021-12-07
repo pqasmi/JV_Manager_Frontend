@@ -55,10 +55,10 @@ export default class NewJv extends Component {
         ownership: '',
         sales: ''
       })
-
-      this.props.getJvs()
+console.log("handle submit clicked")
+    
+      this.props.hideNewJv()
   
-
     }).catch (error => console.error({'Error': error}))
   }
 
@@ -118,6 +118,10 @@ export default class NewJv extends Component {
             onChange={ (e) => this.handleChange(e)} 
             value={this.state.ownership} 
           />
+          <br/>
+        <Button variant="secondary" type="submit" size="sm" className="button">Submit</Button> 
+        {" "}
+        <Button variant="danger" size="sm" className="button"onClick={this.props.hideNewJv}>Hide</Button>  
         </Form.Group>
         <Form.Group as={Col} md="4" controlId="validationCustom01">
           <Form.Label htmlFor="sales">Link to Logo</Form.Label>
@@ -130,20 +134,17 @@ export default class NewJv extends Component {
             onChange={ (e) => this.handleChange(e)} 
             value={this.state.sales} 
           />
+          <br/>
+          
         </Form.Group>
-       
+        
         <br/>
         <br/>
         <br/>
-
-       
       </Row>   
-      <div className="submitButton">
-      <Button type="submit">Submit</Button> 
-      </div>
-       
+      
     </Form>
-
+      
       </>
     
     )

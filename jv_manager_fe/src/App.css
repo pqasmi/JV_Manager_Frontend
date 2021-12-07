@@ -1,10 +1,20 @@
 .header {
   
-  /* margin-top: 20px; */
+  font-family: 'Chango', cursive;
+  font-size: 50px;
+  margin-right: 70px;
+  margin-left: 20px;
+
 
 }
 
+.link {
 
+margin-top: 10px;
+font-size: 20px;
+font: red;
+
+}
 .App-logo {
   text-align: left;
   height: 150px;
