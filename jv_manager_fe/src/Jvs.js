@@ -23,7 +23,9 @@ class Jvs extends Component {
                         <Card.Subtitle className="mb-2 text-muted">Ownership: {jv.ownership}</Card.Subtitle>
                         <Card.Text>
                           Sales: ${jv.sales} Million <br/>
-                          Location (Country): {jv.location}
+                          Country: {jv.location} <br/>
+                          Risk: {jv.sales >= 50 ? 'High' : 'Low'} <br/>
+                          Review : {jv.sales >= 50 ? 'Quarterly' : 'Annually'}
                         </Card.Text>
                         <Button variant="danger" onClick={() => this.props.deleteJv(jv.id)} size="sm">Delete</Button> {' '}
                         <Button variant="secondary" onClick={() => { this.props.showEditForm(jv)}} size="sm">Update</Button>
