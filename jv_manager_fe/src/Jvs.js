@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 class Jvs extends Component {
 
       render() {
+        console.log(this.props.jv)
         return (
             <React.Fragment>   
                 <Container>
