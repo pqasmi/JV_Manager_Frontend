@@ -23,6 +23,8 @@ class App extends Component {
       location: "",
       logo:"",
       showNewJv: false,
+      isLoggedIn: false,
+      logOutMessage: {}
     }
   }
 
@@ -140,12 +142,32 @@ hideNewJv =(e) =>{
   )
   
   }
+
+showLogIn =(e) =>{
+    this.setState(
+      {
+        isLoggedIn: true
+      }
+    )
+    
+    }
+
+hideLogIn =(e) =>{
+      this.setState(
+        {
+          isLoggedIn: false
+        }
+      )
+      
+      }
+
 loginUser = async (e) => {
     console.log('loginUser')
     e.preventDefault()
     const url = baseUrl + '/users/login'
     const loginBody = {
       username: e.target.username.value,
+      email: e.target.email.value,
       password: e.target.password.value
     }
     try {
@@ -171,7 +193,7 @@ loginUser = async (e) => {
     }
   }
 
-  register = async (e) => {
+register = async (e) => {
     e.preventDefault()
     const url = baseUrl + '/users/register'
     try {
@@ -179,6 +201,7 @@ loginUser = async (e) => {
         method: 'POST',
         body: JSON.stringify({
           username: e.target.username.value,
+          email: e.target.email.value,
           password: e.target.password.value
         }),
         headers: {
@@ -186,13 +209,36 @@ loginUser = async (e) => {
         }
       })
       if (response.status === 200) {
+        alert("user register successful")
         this.getJvs()
       }
     }
     catch (err) {
       console.log('Error => ', err);
+      alert("user already exists")
+
     }
   }
+
+// in progress
+logOut = () => {
+    // fetch to the backend
+    fetch(baseUrl + 'users/logout')
+    .then(res => {
+      if(res.status === 200) {
+        return res.json()
+      } else {
+        return []
+      }
+    }).then(data => {
+      console.log(data)
+      this.setState({ 
+        logOutMessage: data.message
+        
+      })
+    })
+  }
+
 
 componentDidMount() {
     this.getJvs()
@@ -215,22 +261,23 @@ render() {
           <Nav.Link className="link" onClick={this.newJv}>Add JV Record</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-        <Nav.Link className="link" eventKey="link-3">
-Forex Rates
-      
-        </Nav.Link>
+        <Nav.Link className="link" onClick={this.showLogIn}>Register/ Sign In</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-        <Nav.Link className="link"eventKey="link-4">Translate Records</Nav.Link>
+        <Nav.Link className="link" onClick={this.logOut} >Log out</Nav.Link>
         </Nav.Item>
       </Nav>
+    
     <br/>
     <br/>
     <br/>
 
-      <Credentials loginUser={this.loginUser} register={this.register}/>
+      {this.state.isLoggedIn &&
+        <Credentials loginUser={this.loginUser} register={this.register} hideLogIn={this.hideLogIn}/>
+      }
+
       {this.state.showNewJv &&
-      <NewJv baseUrl={baseUrl} addJv={ this.addJv } hideNewJv={this.hideNewJv} />
+        <NewJv baseUrl={baseUrl} addJv={ this.addJv } hideNewJv={this.hideNewJv} />
       }
     <br/>
     <br/>
