@@ -4,6 +4,9 @@ import NewJv from './NewJv'
 import Jvs from './Jvs'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Nav from 'react-bootstrap/Nav';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Credentials from './Credentials'
 
 let baseUrl = 'http://localhost:8000'
@@ -262,6 +265,10 @@ componentDidMount() {
     this.getJvs()
   }
 
+componentWillUnmount() {
+    this.getJvs()
+  }
+
 render() {
   return (
     <>
@@ -292,6 +299,13 @@ render() {
     <br/>
     <br/>
     <br/>
+          {/* <Container>
+              <Row>
+                  <Col>
+                  Key Features: <br/>Record Key information relating to Joint ventures of the corporation</Col>
+              </Row>
+          </Container> */}
+
 
       {this.state.showLogIn &&
         <Credentials loginUser={this.loginUser} register={this.register} hideLogIn={this.hideLogIn}/>
