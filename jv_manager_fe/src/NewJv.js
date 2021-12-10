@@ -48,7 +48,7 @@ export default class NewJv extends Component {
     }).then( data => {
       console.log(data)
       // call addJv function in app.js and pass in the new data as input
-      this.props.addJv(data)
+      this.props.addJv(data.data)
       this.setState({
         name: '',
         logo: '',

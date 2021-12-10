@@ -12,11 +12,11 @@ class Jvs extends Component {
         return (
             <React.Fragment>   
                 <Container>
-                    <Row md={4}>       
+                    <Row xs={1} md={4}>       
                   {this.props.jv.map((jv, i) => {
                   return (
-                    <Col> <br/>
-                    <Card border="dark" style={{ width: '18rem' }}>
+                    <Col padding-left={20}> <br/>
+                    <Card border="danger" style={{ width: '18rem' }}>
                       <Card.Img variant="top" src={jv.logo} height={200} width={75}/>
                       <Card.Body>
                         <Card.Title>{jv.name}</Card.Title>
@@ -39,7 +39,6 @@ class Jvs extends Component {
                      )
                     })
                   }
-                   
                     </Row>
                     </Container>
       

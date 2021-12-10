@@ -4,10 +4,15 @@ import NewJv from './NewJv'
 import Jvs from './Jvs'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
+import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
-import Credentials from './Credentials'
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+
+import Register from './Register'
+import Login from './Login'
 
 let baseUrl = 'http://localhost:8000'
 
@@ -26,7 +31,8 @@ class App extends Component {
       location: "",
       logo:"",
       showNewJv: false,
-      showLogIn: false,
+      showRegister: false,
+      showLogin: false,
       userName: "",
       userLogIn: false
     }
@@ -119,6 +125,7 @@ handleChange = (e)=>{
 showEditForm = (jv) =>{
   this.setState({
     modalOpen:true,
+    userLogIn: false,
     name: jv.name,
     logo: jv.logo,
     location: jv.location,
@@ -147,19 +154,36 @@ hideNewJv =(e) =>{
   
   }
 
-showLogIn =(e) =>{
+showRegister =(e) =>{
     this.setState(
       {
-        showLogIn: true
+        showRegister: true
       }
     )
     
     }
 
-hideLogIn =(e) =>{
+hideRegister =(e) =>{
       this.setState(
       {
-        showLogIn: false
+        showRegister: false
+      }
+    )    
+  }
+
+showLogin =(e) =>{
+    this.setState(
+      {
+        showLogin: true
+      }
+    )
+    
+    }
+
+hideLogin =(e) =>{
+      this.setState(
+      {
+        showLogin: false
       }
     )    
   }
@@ -193,7 +217,7 @@ loginUser = async (e) => {
 
       alert(`${e.target.username.value} logged in successfully `)
       console.log(`${e.target.username.value} logged in successfully`)
-      this.hideLogIn()
+      this.hideLogin()
       this.setState ({
         userLogIn: true,
         userName: e.target.username.value,
@@ -223,9 +247,11 @@ register = async (e) => {
       if (response.status === 200) {
 
         this.getJvs()
+        
       }
       alert(`${e.target.username.value} registered successful `)
       console.log(`${e.target.username.value} registered successful`)
+      this.hideRegister()
      
     }
     catch (err) {
@@ -256,7 +282,7 @@ logOut = async (e) => {
         userName: "",
         userLogIn: false,
       })
-      this.hideLogIn()
+      this.hideLogin()
 
     }
 
@@ -272,51 +298,48 @@ componentWillUnmount() {
 render() {
   return (
     <>
-        <Nav
-          activeKey="/home"
-          onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
-      >
-        <Nav.Item>
-        {/* <img src={logo} alt="logo" height={75} width={90} /> */}
-        </Nav.Item>
-        <Nav.Item>
-        <h3 className="header">Joint Venture Manager</h3>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link className="link" onClick={this.newJv}>Add JV Record</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-        <Nav.Link className="link" onClick={this.showLogIn}>Register/ Sign In</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-        <Nav.Link className="link" onClick={this.logOut} >Log out</Nav.Link>
-        </Nav.Item>
-        <Nav.Item> 
-        <Nav.Link className="link3" >{this.state.userName}</Nav.Link>
-        </Nav.Item>
-      </Nav>
-    
+      <Navbar bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand className="header"><h1>Joint Venture Manager</h1></Navbar.Brand> 
+          <Navbar.Toggle />
+          <Nav className="me-auto">
+            <Nav.Link>{"      "}</Nav.Link>
+            <Nav.Link>     </Nav.Link>
+            
+            
+            <Nav.Link onClick={this.newJv} href="#home"><h5>Add JV</h5></Nav.Link>
+            <Nav.Link> </Nav.Link>
+            <Nav.Link onClick={this.showRegister} href="#home"><h5>Register</h5></Nav.Link>
+            <Nav.Link> </Nav.Link>
+            <Nav.Link onClick={this.showLogin} href="#home"><h5>Login</h5></Nav.Link>
+            
+          </Nav>
+  
+          <Navbar.Collapse className="justify-content-end">
+          <Nav.Link onClick={this.logOut} href="#home"><h6>Log Out</h6></Nav.Link>
+          <Navbar.Text>
+              User: <a href="#login"><h6>{this.state.userName}</h6></a>
+          </Navbar.Text>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>    
     <br/>
     <br/>
     <br/>
-          {/* <Container>
-              <Row>
-                  <Col>
-                  Key Features: <br/>Record Key information relating to Joint ventures of the corporation</Col>
-              </Row>
-          </Container> */}
 
+      {this.state.showRegister &&
+        // <Credentials loginUser={this.loginUser} register={this.register} hideLogIn={this.hideLogIn}/>
+        <Register register={this.register} hideRegister={this.hideRegister}/> 
+      }
 
-      {this.state.showLogIn &&
-        <Credentials loginUser={this.loginUser} register={this.register} hideLogIn={this.hideLogIn}/>
+      {this.state.showLogin &&
+        // <Credentials loginUser={this.loginUser} register={this.register} hideLogIn={this.hideLogIn}/>
+        <Login loginUser={this.loginUser} hideLogin={this.hideLogin}/> 
       }
 
       {this.state.showNewJv &&
         <NewJv baseUrl={baseUrl} addJv={ this.addJv } hideNewJv={this.hideNewJv} />
       }
-    <br/>
-    <br/>
-    <br/>
     <br/>
 
     {this.state.userLogIn &&
@@ -325,26 +348,79 @@ render() {
       {
             this.state.modalOpen &&
 
-            <form onSubmit={this.handleSubmit}>
-              <label>Name: </label>
-              <input name="name" value={this.state.name} onChange={this.handleChange}/> <br/>
+<>
+          <Form className="newForm" onSubmit={this.handleSubmit} margin={100}>
+            <Row className="mb-3">
+              <Form.Group as={Col} md="4" controlId="validationCustom01">
+                <Form.Label htmlFor="name">Name</Form.Label>
+                <Form.Control
+                type="text"
+                name="name" 
+                value={this.state.name} 
+                onChange={this.handleChange}
+                
+                />
+              </Form.Group>
+              <Form.Group as={Col} md="4" controlId="validationCustom01">
+                <Form.Label htmlFor="logo">Logo</Form.Label>
+                <Form.Control
+            
+                  type="text"
+                  name="logo" 
+                  value={this.state.logo} 
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group as={Col} md="4" controlId="validationCustom01">
+                <Form.Label htmlFor="location">Location</Form.Label>
+                <Form.Control
+              
+                type="text"
+                name="location" 
+                value={this.state.location} 
+                onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Row>  
+            
+            <Row className="mb-3">
+              <Form.Group as={Col} md="4" controlId="validationCustom01">
+                <Form.Label htmlFor="ownership">Ownership</Form.Label>
+                <Form.Control
+              
+                    type="text"
+                    name="ownership" 
+                    value={this.state.ownership} 
+                    onChange={this.handleChange}
+                />
+                <br/>
+              <Button variant="secondary" type="submit" size="sm" className="button" onClick={()=> this.setState({userLogIn: true})}>Submit</Button> 
+              {" "}
+              <Button variant="danger" type="submit" size="sm" className="button" onClick={()=> this.setState({modalOpen: false, userLogIn: true})}>Hide</Button> 
+              </Form.Group>
+              <Form.Group as={Col} md="4" controlId="validationCustom01">
+                <Form.Label htmlFor="sales">Sales</Form.Label>
+                <Form.Control
+              
+                  type="text"
+                  name="sales" 
+                  value={this.state.sales} 
+                  onChange={this.handleChange}
+                />
+                <br/>
+                
+              </Form.Group>
+              
+              <br/>
+              <br/>
+              <br/>
+            </Row>   
 
 
-              <label>Logo: </label>
-              <input name="logo" value={this.state.logo} onChange={this.handleChange}/> <br/>
 
-              <label>Location: </label>
-              <input name="location" value={this.state.location} onChange={this.handleChange}/> <br/>
+            </Form>
 
-              <label>Ownership: </label>
-              <input name="ownership" value={this.state.ownership} onChange={this.handleChange}/>
-
-              <label>Sales: </label>
-              <input name="sales" value={this.state.sales} onChange={this.handleChange}/>
-
-              <button>submit</button>
-
-            </form>
+            </>
           } 
     </>
   );
