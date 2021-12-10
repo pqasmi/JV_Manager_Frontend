@@ -13,7 +13,7 @@ class Jvs extends Component {
             <React.Fragment>   
                 <Container>
                     <Row md={4}>
-                    
+                 
                   {this.props.jv.map((jv, i) => {
                   return (
                     <Col> <br/>
@@ -26,11 +26,14 @@ class Jvs extends Component {
                           Sales: ${jv.sales} Million <br/>
                           Country: {jv.location} <br/>
                           Risk: {jv.sales >= 50 ? 'High' : 'Low'} <br/>
-                          Review : {jv.sales >= 50 ? 'Quarterly' : 'Annually'}
+                          Review : {jv.sales >= 50 ? 'Quarterly' : 'Annually'} <br/>
+                          Preparer Name: {jv.preparer.username}
+                          
                         </Card.Text>
                         <Button variant="danger" onClick={() => this.props.deleteJv(jv.id)} size="sm">Delete</Button> {' '}
                         <Button variant="secondary" onClick={() => { this.props.showEditForm(jv)}} size="sm">Update</Button>
-
+                        <br/><br/>
+                        Last Updated on: {jv.created_at}
                       </Card.Body>
                     </Card>
                     </Col>

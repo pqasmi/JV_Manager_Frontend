@@ -23,8 +23,9 @@ class App extends Component {
       location: "",
       logo:"",
       showNewJv: false,
-      isLoggedIn: false,
-      logOutMessage: {}
+      showLogIn: false,
+      userName: "",
+      userLogIn: false
     }
   }
 
@@ -146,7 +147,7 @@ hideNewJv =(e) =>{
 showLogIn =(e) =>{
     this.setState(
       {
-        isLoggedIn: true
+        showLogIn: true
       }
     )
     
@@ -154,12 +155,11 @@ showLogIn =(e) =>{
 
 hideLogIn =(e) =>{
       this.setState(
-        {
-          isLoggedIn: false
-        }
-      )
-      
+      {
+        showLogIn: false
       }
+    )    
+  }
 
 loginUser = async (e) => {
     console.log('loginUser')
@@ -187,6 +187,15 @@ loginUser = async (e) => {
       if (response.status === 200) {
         this.getJvs()
       }
+
+      alert(`${e.target.username.value} logged in successfully `)
+      console.log(`${e.target.username.value} logged in successfully`)
+      this.hideLogIn()
+      this.setState ({
+        userLogIn: true,
+        userName: e.target.username.value,
+      })
+      
     }
     catch (err) {
       console.log('Error => ', err);
@@ -209,9 +218,12 @@ register = async (e) => {
         }
       })
       if (response.status === 200) {
-        alert("user register successful")
+
         this.getJvs()
       }
+      alert(`${e.target.username.value} registered successful `)
+      console.log(`${e.target.username.value} registered successful`)
+     
     }
     catch (err) {
       console.log('Error => ', err);
@@ -220,24 +232,30 @@ register = async (e) => {
     }
   }
 
-// in progress
-logOut = () => {
-    // fetch to the backend
-    fetch(baseUrl + 'users/logout')
-    .then(res => {
-      if(res.status === 200) {
-        return res.json()
-      } else {
-        return []
+logOut = async (e) => {
+    console.log('logout')
+    e.preventDefault()
+    const url = baseUrl + '/users/logout'
+    const response = await fetch(url
+        , 
+        {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: "include"
       }
-    }).then(data => {
-      console.log(data)
-      this.setState({ 
-        logOutMessage: data.message
-        
+      )
+      console.log(response)
+      console.log("BODY: ",response.body)
+      alert(`${this.state.userName} successfully logged out`)
+      this.setState({
+        userName: "",
+        userLogIn: false,
       })
-    })
-  }
+      this.hideLogIn()
+
+    }
 
 
 componentDidMount() {
@@ -266,13 +284,16 @@ render() {
         <Nav.Item>
         <Nav.Link className="link" onClick={this.logOut} >Log out</Nav.Link>
         </Nav.Item>
+        <Nav.Item> 
+        <Nav.Link className="link3" >{this.state.userName}</Nav.Link>
+        </Nav.Item>
       </Nav>
     
     <br/>
     <br/>
     <br/>
 
-      {this.state.isLoggedIn &&
+      {this.state.showLogIn &&
         <Credentials loginUser={this.loginUser} register={this.register} hideLogIn={this.hideLogIn}/>
       }
 
@@ -283,7 +304,10 @@ render() {
     <br/>
     <br/>
     <br/>
+
+    {this.state.userLogIn &&
       <Jvs jv={this.state.jv} deleteJv={this.deleteJv} showEditForm={this.showEditForm} getJvs={this.getJvs} />
+    }
       {
             this.state.modalOpen &&
 
