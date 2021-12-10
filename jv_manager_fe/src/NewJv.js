@@ -125,7 +125,7 @@ console.log("handle submit clicked")
         <Button variant="danger" size="sm" className="button"onClick={this.props.hideNewJv}>Hide</Button>  
         </Form.Group>
         <Form.Group as={Col} md="4" controlId="validationCustom01">
-          <Form.Label htmlFor="sales">Link to Logo</Form.Label>
+          <Form.Label htmlFor="sales">Sales</Form.Label>
           <Form.Control
         
             type="text"
