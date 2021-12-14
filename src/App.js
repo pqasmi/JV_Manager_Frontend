@@ -53,6 +53,7 @@ getJvs = async() => {
     }).then(data => {
       console.log(data)
       this.setState({ 
+        userLogIn:true,
         jv: data.data,
         
       })
@@ -221,7 +222,7 @@ loginUser = async (e) => {
       console.log(`${e.target.username.value} logged in successfully`)
       this.hideLogin()
       this.setState ({
-        userLogIn: true,
+        // userLogIn: true,
         userName: e.target.username.value,
       })
       
