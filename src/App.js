@@ -212,9 +212,9 @@ loginUser = async (e) => {
       console.log(response)
       console.log("BODY: ",response.body)
 
-      // if (response.status === 200) {
-      //   this.getJvs()
-      // }
+      if (response.status === 200) {
+        this.getJvs()
+      }
 
       alert(`${e.target.username.value} logged in successfully `)
       console.log(`${e.target.username.value} logged in successfully`)
