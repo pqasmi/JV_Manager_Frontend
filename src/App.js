@@ -292,9 +292,9 @@ componentDidMount() {
     this.getJvs()
   }
 
-componentWillUnmount() {
-    this.getJvs()
-  }
+// componentWillUnmount() {
+//     this.getJvs()
+//   }
 
 render() {
   return (
