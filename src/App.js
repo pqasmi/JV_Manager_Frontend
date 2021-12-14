@@ -248,7 +248,7 @@ register = async (e) => {
       })
       if (response.status === 200) {
 
-        // this.getJvs()
+        this.getJvs()
         
       }
       alert(`${e.target.username.value} registered successful `)
