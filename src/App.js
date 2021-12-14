@@ -12,7 +12,6 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Register from './Register'
 import Login from './Login'
-import Chart from './Chart'
 
 
 
@@ -346,11 +345,7 @@ render() {
     <br/>
     <br/>
     <br/>
-
-    {this.state.userLogIn &&
-      <Chart jv={this.state.jv} />
-    }
-      
+   
     {this.state.userLogIn &&
       <Jvs jv={this.state.jv} deleteJv={this.deleteJv} showEditForm={this.showEditForm} getJvs={this.getJvs} />
     }
