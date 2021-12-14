@@ -1,5 +1,3 @@
-
-import Button from 'react-bootstrap/Button';
 import './Register.css';
 
 export default function Register (props) {

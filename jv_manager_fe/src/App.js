@@ -10,9 +10,11 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-
 import Register from './Register'
 import Login from './Login'
+import Chart from './Chart'
+
+
 
 let baseUrl = 'http://localhost:8000'
 
@@ -57,7 +59,8 @@ getJvs = () => {
       })
     })
   }
-addJv = (newJv) => {
+
+  addJv = (newJv) => {
     const copyJv = [...this.state.jv]
     copyJv.push(newJv)
     this.setState({
@@ -283,9 +286,7 @@ logOut = async (e) => {
         userLogIn: false,
       })
       this.hideLogin()
-
     }
-
 
 componentDidMount() {
     this.getJvs()
@@ -293,6 +294,9 @@ componentDidMount() {
 
 componentWillUnmount() {
     this.getJvs()
+    this.register()
+    this.loginUser()
+    this.handleSubmit()
   }
 
 render() {
@@ -300,19 +304,22 @@ render() {
     <>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand className="header"><h1>Joint Venture Manager</h1></Navbar.Brand> 
+          <Navbar.Brand className="header3"><h1>Joint Venture Manager</h1></Navbar.Brand> 
           <Navbar.Toggle />
           <Nav className="me-auto">
             <Nav.Link>{"      "}</Nav.Link>
             <Nav.Link>     </Nav.Link>
             
-            
+          
             <Nav.Link onClick={this.newJv} href="#home"><h5>Add JV</h5></Nav.Link>
             <Nav.Link> </Nav.Link>
+            {!this.state.userLogIn &&
             <Nav.Link onClick={this.showRegister} href="#home"><h5>Register</h5></Nav.Link>
+            }
             <Nav.Link> </Nav.Link>
+            {!this.state.userLogIn &&
             <Nav.Link onClick={this.showLogin} href="#home"><h5>Login</h5></Nav.Link>
-            
+          }
           </Nav>
   
           <Navbar.Collapse className="justify-content-end">
@@ -326,14 +333,12 @@ render() {
     <br/>
     <br/>
     <br/>
-
+    
       {this.state.showRegister &&
-        // <Credentials loginUser={this.loginUser} register={this.register} hideLogIn={this.hideLogIn}/>
         <Register register={this.register} hideRegister={this.hideRegister}/> 
       }
 
       {this.state.showLogin &&
-        // <Credentials loginUser={this.loginUser} register={this.register} hideLogIn={this.hideLogIn}/>
         <Login loginUser={this.loginUser} hideLogin={this.hideLogin}/> 
       }
 
@@ -341,7 +346,13 @@ render() {
         <NewJv baseUrl={baseUrl} addJv={ this.addJv } hideNewJv={this.hideNewJv} />
       }
     <br/>
+    <br/>
+    <br/>
 
+    {this.state.userLogIn &&
+      <Chart jv={this.state.jv} />
+    }
+      
     {this.state.userLogIn &&
       <Jvs jv={this.state.jv} deleteJv={this.deleteJv} showEditForm={this.showEditForm} getJvs={this.getJvs} />
     }

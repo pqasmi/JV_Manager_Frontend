@@ -16,7 +16,7 @@ class Jvs extends Component {
                   {this.props.jv.map((jv, i) => {
                   return (
                     <Col padding-left={20}> <br/>
-                    <Card border="danger" style={{ width: '18rem' }}>
+                    <Card border="dark" style={{ width: '18rem' }}>
                       <Card.Img variant="top" src={jv.logo} height={200} width={75}/>
                       <Card.Body>
                         <Card.Title>{jv.name}</Card.Title>
