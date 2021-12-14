@@ -288,13 +288,16 @@ logOut = async (e) => {
       this.hideLogin()
     }
 
-componentDidMount() {
-    this.getJvs()
-  }
 
-// componentWillUnmount() {
+  
+// componentDidMount() {
 //     this.getJvs()
 //   }
+
+//   componentWillUnmount() {
+//     this.getJvs()
+//   }
+
 
 render() {
   return (
