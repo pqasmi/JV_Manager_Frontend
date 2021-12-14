@@ -39,7 +39,7 @@ class App extends Component {
     }
   }
 
-getJvs = async() => {
+getJvs = () => {
     // fetch to the backend
     fetch(baseUrl + "/jv/", {
       credentials: "include"
@@ -53,14 +53,13 @@ getJvs = async() => {
     }).then(data => {
       console.log(data)
       this.setState({ 
-        userLogIn:true,
         jv: data.data,
         
       })
     })
   }
 
-  addJv = (newJv) => {
+addJv = (newJv) => {
     const copyJv = [...this.state.jv]
     copyJv.push(newJv)
     this.setState({
@@ -82,6 +81,7 @@ deleteJv = (id) => {
     })
   })
 }
+
 handleSubmit = async (e) => {
   e.preventDefault()
   const url = baseUrl + '/jv/' + this.state.id
@@ -222,7 +222,7 @@ loginUser = async (e) => {
       console.log(`${e.target.username.value} logged in successfully`)
       this.hideLogin()
       this.setState ({
-        // userLogIn: true,
+        userLogIn: true,
         userName: e.target.username.value,
       })
       
@@ -249,7 +249,7 @@ register = async (e) => {
       })
       if (response.status === 200) {
 
-        this.getJvs()
+        // this.getJvs()
         
       }
       alert(`${e.target.username.value} registered successful `)
@@ -288,10 +288,11 @@ logOut = async (e) => {
       this.hideLogin()
     }
 
-componentWillUnmount() {
-      this.getJvs()
-    }
 componentDidMount() {
+    this.getJvs()
+  }
+
+componentWillUnmount() {
     this.getJvs()
   }
 
