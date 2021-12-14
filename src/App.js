@@ -287,16 +287,13 @@ logOut = async (e) => {
       this.hideLogin()
     }
 
-// componentDidMount() {
-//     this.getJvs()
-//   }
+componentDidMount() {
+    this.getJvs()
+  }
 
-// componentWillUnmount() {
-//     this.getJvs()
-//     this.register()
-//     this.loginUser()
-//     this.handleSubmit()
-//   }
+componentWillUnmount() {
+    this.getJvs()
+  }
 
 render() {
   return (
@@ -352,7 +349,7 @@ render() {
       {
             this.state.modalOpen &&
 
-<>
+
           <Form className="newForm" onSubmit={this.handleSubmit} margin={100}>
             <Row className="mb-3">
               <Form.Group as={Col} md="4" controlId="validationCustom01">
@@ -424,7 +421,7 @@ render() {
 
             </Form>
 
-            </>
+            
           } 
     </>
   );
