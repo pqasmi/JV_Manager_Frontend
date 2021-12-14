@@ -39,7 +39,7 @@ class App extends Component {
     }
   }
 
-getJvs = () => {
+getJvs = async() => {
     // fetch to the backend
     fetch(baseUrl + "/jv/", {
       credentials: "include"
@@ -293,8 +293,6 @@ componentWillUnmount() {
 componentDidMount() {
     this.getJvs()
   }
-
-
 
 render() {
   return (
