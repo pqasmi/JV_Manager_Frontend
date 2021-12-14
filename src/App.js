@@ -287,16 +287,16 @@ logOut = async (e) => {
       this.hideLogin()
     }
 
-componentDidMount() {
-    this.getJvs()
-  }
+// componentDidMount() {
+//     this.getJvs()
+//   }
 
-componentWillUnmount() {
-    this.getJvs()
-    this.register()
-    this.loginUser()
-    this.handleSubmit()
-  }
+// componentWillUnmount() {
+//     this.getJvs()
+//     this.register()
+//     this.loginUser()
+//     this.handleSubmit()
+//   }
 
 render() {
   return (
@@ -345,7 +345,7 @@ render() {
     <br/>
     <br/>
     <br/>
-   
+      
     {this.state.userLogIn &&
       <Jvs jv={this.state.jv} deleteJv={this.deleteJv} showEditForm={this.showEditForm} getJvs={this.getJvs} />
     }
