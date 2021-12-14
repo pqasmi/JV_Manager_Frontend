@@ -16,7 +16,7 @@ import Chart from './Chart'
 
 
 
-let baseUrl = 'http://localhost:8000'
+let baseUrl = process.env.REACT_APP_BASEURL
 
 class App extends Component {
   constructor(props) {
@@ -309,8 +309,6 @@ render() {
           <Nav className="me-auto">
             <Nav.Link>{"      "}</Nav.Link>
             <Nav.Link>     </Nav.Link>
-            
-          
             <Nav.Link onClick={this.newJv} href="#home"><h5>Add JV</h5></Nav.Link>
             <Nav.Link> </Nav.Link>
             {!this.state.userLogIn &&

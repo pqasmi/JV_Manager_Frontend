@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import './NewJv.css';
 
+let baseUrl = process.env.REACT_APP_BASEURL
 
 export default class NewJv extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ export default class NewJv extends Component {
     event.preventDefault()
  
     // fetch
-    fetch('http://localhost:8000' + '/jv/', {
+    fetch(baseUrl + '/jv/', {
       method: 'POST',
       body: JSON.stringify({
           name: this.state.name,
