@@ -7,13 +7,17 @@ import Col from 'react-bootstrap/Col';
 
 class Jvs extends Component {
 
+  componentDidMount() {
+    this.props.getJvs()
+  }
+
       render() {
-        console.log(this.props.jv)
+        console.log(this.props.jvs)
         return (
             <React.Fragment>   
                 <Container>
                     <Row xs={1} md={4}>       
-                  {this.props.jv.map((jv, i) => {
+                  {this.props.jvs.map((jv, i) => {
                   return (
                     <Col padding-left={20}> <br/>
                     <Card border="dark" style={{ width: '18rem' }}>

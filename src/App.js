@@ -45,17 +45,15 @@ getJvs = () => {
       credentials: "include"
     })
     .then(res => {
-      if(res.status === 200) {
         return res.json()
-      } else {
-        return []
-      }
     }).then(data => {
+  if(data.status === 200) {
       console.log(data)
       this.setState({ 
         jv: data.data,
-        
+      
       })
+    }
     })
   }
 
@@ -214,9 +212,9 @@ loginUser = async (e) => {
       console.log(response)
       console.log("BODY: ",response.body)
 
-      if (response.status === 200) {
-        this.getJvs()
-      }
+      // if (response.status === 200) {
+      //   this.getJvs()
+      // }
 
       alert(`${e.target.username.value} logged in successfully `)
       console.log(`${e.target.username.value} logged in successfully`)
@@ -288,18 +286,19 @@ logOut = async (e) => {
       this.hideLogin()
     }
 
-  componentWillUnmount() {
-    this.getJvs()
-  }
+ 
   
 componentDidMount() {
     this.getJvs()
   }
 
-
+componentWillUnmount() {
+    this.getJvs()
+  }
 
 
 render() {
+  console.log(this.state.jv)
   return (
     <>
       <Navbar bg="dark" variant="dark">
@@ -348,7 +347,7 @@ render() {
     <br/>
       
     {this.state.userLogIn &&
-      <Jvs jv={this.state.jv} deleteJv={this.deleteJv} showEditForm={this.showEditForm} getJvs={this.getJvs} />
+      <Jvs jvs={this.state.jv} deleteJv={this.deleteJv} showEditForm={this.showEditForm} getJvs={this.getJvs} />
     }
       {
             this.state.modalOpen &&
